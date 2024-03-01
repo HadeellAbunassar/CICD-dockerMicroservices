@@ -1,0 +1,60 @@
+version: '3.8'
+services:
+  mongodbb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    
+  mysqldbb:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: hadeel123
+      MYSQL_DATABASE: collectiondata
+    
+  analysis-service:
+    build:
+      context: analysis
+    ports:
+      - "8084:8084"
+    depends_on:
+      - mysqldbb
+      - mongodbb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldbb:3306/collectiondata
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: hadeel123
+      SPRING_DATA_MONGODB_URI: mongodb://mongodbb:27017/collectingdata
+   
+  
+  collect-service:
+    build:
+      context: userLoginCollectData
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldbb:3306/collectiondata
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: hadeel123
+    depends_on:
+      - mysqldbb
+      - authentication-service
+      - analysis-service
+
+  showdata-service:
+    build:
+      context: showData
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongodbb:27017/collectingdata
+    depends_on:
+      - mongodbb
+      - authentication-service
+
+  authentication-service:
+    build:
+      context: userAuthentication
+    ports:
+      - "8081:8081"
+
+ 
