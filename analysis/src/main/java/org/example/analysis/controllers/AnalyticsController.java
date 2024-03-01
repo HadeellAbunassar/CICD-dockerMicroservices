@@ -23,7 +23,6 @@ public class AnalyticsController {
 
     @GetMapping("/getstat")
     public ResponseEntity<String> analyze() {
-        System.out.println("modification for ci/cd test!!");
         List<Integer> grades = retirveDataDAO.getAllGrades();
         statisticsDAO.calculateStatistics(grades);
         return ResponseEntity.status(HttpStatus.OK).body("Inserting The Grade Done Successfully.");
