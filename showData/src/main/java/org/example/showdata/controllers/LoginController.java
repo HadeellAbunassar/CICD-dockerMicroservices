@@ -25,6 +25,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, @RequestParam("password") String password, Model model, HttpSession session) {
+        System.out.println("test the pipeline");
         RestTemplate restTemplate = new RestTemplate();
         User user = new User(username, password);
 
