@@ -17,9 +17,9 @@ jobs:
       - name: Set up JDK 17 with Maven
         uses: actions/setup-java@v2
         with:
-         java-version: '17'
-         distribution: 'adopt'
-         cache: maven
+          java-version: '17'
+          distribution: 'adopt'
+          cache: maven
         
       - name: Compile Java projects
         run: |
@@ -36,18 +36,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Build and push Docker images
-        run: |
-          docker build -t analysis-service:latest -t analysis-service:${{ github.sha }} analysis/.
-          docker build -t collect-service:latest -t collect-service:${{ github.sha }} userLoginCollectData/.
-          docker build -t showdata-service:latest -t showdata-service:${{ github.sha }} showData/.
-          docker build -t authentication-service:latest -t authentication-service:${{ github.sha }} userAuthentication/.
-          
-          docker push ${{ secrets.DOCKER_USERNAME }}/analysis-service:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/collect-service:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/showdata-service:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/authentication-service:${{ github.sha }}
 
       - name: Update Docker Compose file
         run: |
