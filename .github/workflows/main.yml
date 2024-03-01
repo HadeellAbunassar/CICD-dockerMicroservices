@@ -39,10 +39,10 @@ jobs:
 
       - name: Update Docker Compose file
         run: |
-          sed -i "s|analysis-service:.*|analysis-service:\n    image: ${{ secrets.DOCKER_USERNAME }}/analysis-service:latest|" docker-compose.yml
-          sed -i "s|collect-service:.*|collect-service:\n    image: ${{ secrets.DOCKER_USERNAME }}/collect-service:latest|" docker-compose.yml
-          sed -i "s|showdata-service:.*|showdata-service:\n    image: ${{ secrets.DOCKER_USERNAME }}/showdata-service:latest|" docker-compose.yml
-          sed -i "s|authentication-service:.*|authentication-service:\n    image: ${{ secrets.DOCKER_USERNAME }}/authentication-service:latest|" docker-compose.yml
+          sed -i "s|analysis-service:.*|analysis-service:\n    image: ${{ secrets.DOCKER_USERNAME }}/analysis-service:latest|" compose.yml
+          sed -i "s|collect-service:.*|collect-service:\n    image: ${{ secrets.DOCKER_USERNAME }}/collect-service:latest|" compose.yml
+          sed -i "s|showdata-service:.*|showdata-service:\n    image: ${{ secrets.DOCKER_USERNAME }}/showdata-service:latest|" compose.yml
+          sed -i "s|authentication-service:.*|authentication-service:\n    image: ${{ secrets.DOCKER_USERNAME }}/authentication-service:latest|" compose.yml
 
       - name: Deploy Docker Compose
         run: docker-compose up -d
