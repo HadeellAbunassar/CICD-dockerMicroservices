@@ -16,7 +16,7 @@ jobs:
 
       - name: Set up JDK 17 with Maven
         uses: actions/setup-java@v2
-         with:
+        with:
          java-version: '17'
          maven-version: '3.8.3'
         
